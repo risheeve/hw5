@@ -53,7 +53,7 @@ bool schedule(
         return true;  
     }
     size_t workers = avail[dayIndx].size();
-    for (Worker_T i = 0; i < workers; ++i) {
+    for (Worker_T i=0; i<workers; ++i) {
          
         if (schedValidity(avail, workShifts, maxShifts, dayIndx, i)) {
             sched[dayIndx].push_back(i);
@@ -62,14 +62,14 @@ bool schedule(
                     return true;
                 }
                 sched[dayIndx].pop_back();
-                workShifts[i] -= 1;
+                workShifts[i]-=1;
             }
             else {
                 if(scheduleDay(dayIndx, avail, sched, workShifts, maxShifts, dailyNeed)) {
                     return true;
                 }
                 sched[dayIndx].pop_back();
-                workShifts[i] -= 1;
+                workShifts[i]-=1;
             }
 
         }
@@ -81,10 +81,10 @@ bool schedule(
 }
 
 bool schedValidity(const AvailabilityMatrix& avail, map<Worker_T, int>& workShifts, size_t maxShifts, int dayIndx, Worker_T worker){
+    int shifts = workShifts[worker];
     if(!avail[dayIndx][worker]) {
         return false;
     }
-    int shifts = workShifts[worker];
     if(shifts >= maxShifts) {
         return false;
     } else {
